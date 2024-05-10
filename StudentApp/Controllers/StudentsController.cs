@@ -34,7 +34,7 @@ namespace StudentApp.Controllers
             await dbContext.SaveChangesAsync();
 
 
-            return View();
+            return RedirectToAction("List", "Students");
         }
 
         [HttpGet]
@@ -75,17 +75,27 @@ namespace StudentApp.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> Delete(Student viewModel)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            var students = await dbContext.Students.AsNoTracking().FirstOrDefaultAsync(x => x.id == viewModel.id);
 
-            if (students is not null)
+            //var students = await dbContext.Students.AsNoTracking().FirstOrDefaultAsync(x => x.id == viewModel.id);
+
+            //if (students is not null)
+            //{
+            //    dbContext.Students.Remove(viewModel);
+            //    await dbContext.SaveChangesAsync();
+            //}
+
+            //return RedirectToAction("List", "Students");
+
+            var student = await dbContext.Students.FindAsync(id);
+            if (student is not null)
             {
-                dbContext.Students.Remove(viewModel);
+                dbContext.Students.Remove(student);
                 await dbContext.SaveChangesAsync();
             }
 
-            return RedirectToAction("List", "Students");
+            return RedirectToAction("List");
 
         }
     }

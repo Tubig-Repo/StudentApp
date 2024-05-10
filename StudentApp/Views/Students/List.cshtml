@@ -5,14 +5,14 @@
 }
 @model List<StudentApp.Models.Entities.Student>
 
-<h1>Students</h1>
-<a type="submit" class="btn btn-secondary" asp-controller="Students" asp-action="Add"> Create new student </a>
-<table class="table">
+<h1 class="text-light p-3">Students</h1>
+<a type="submit" class="btn btn-secondary text-light p-3" asp-controller="Students" asp-action="Add"> Create new student </a>
+<table class="table p-3">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
+            <th class="text-light">ID</th>
+            <th class="text-light">Name</th>
+            <th class="text-light">Email</th>
             <th></th>
 
         </tr>
@@ -20,11 +20,18 @@
     <tbody>
         @foreach (var student in Model) { 
             <tr>
-                <td>@student.id</td>
-                <td>@student.Name</td>
-                <td>@student.Email</td>
-                <td>@student.Phone</td>
-                <td><a class="btn btn-primary" asp-controller="Students" asp-action="Edit" asp-route-id="@student.id">Edit</a></td>
+                <td class="text-light">@student.id</td>
+                <td class="text-light">@student.Name</td>
+                <td class="text-light">@student.Email</td>
+                <td class="text-light">@student.Phone</td>
+            
+                <td class="text-light"><a class="btn btn-primary" asp-controller="Students" asp-action="Edit" asp-route-id="@student.id">Edit</a></td>
+                <td class="text-light">
+                    <form method="post" asp-controller="Students" asp-action="Delete">
+                        <input type="hidden" name="id" value="@student.id" />
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>
